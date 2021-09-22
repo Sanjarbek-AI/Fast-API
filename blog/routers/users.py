@@ -26,3 +26,8 @@ def create_user(request: schemes.User, db: Session = Depends(get_db)):
 @router.get('/{user_id}')
 def get_one_user(user_id, db: Session = Depends(get_db)):
     return user.get_one_user(user_id, db)
+
+
+@router.put('/user', response_model=schemes.ShowUser)
+def update_user(user_id, request: schemes.User, db: Session = Depends(get_db)):
+    return user.update_user(user_id, request, db)

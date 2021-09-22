@@ -25,3 +25,14 @@ def get_one_user(user_id, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=404, detail=f"User with this id ({user_id}) is not found")
     return user
+
+
+def update_user(user_id, request: schemes.User, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == user_id)
+    if not user.first():
+        raise HTTPException(status_code=404, detail=f"User with this id {user_id} is not found")
+
+    user.update(
+        {'name': request.name, 'email': request.email, 'password': request.password}
+    )
+    return {"detail": "User is updated"}
