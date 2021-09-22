@@ -1,3 +1,5 @@
+from typing import List
+
 from pydantic import BaseModel
 
 
@@ -22,8 +24,11 @@ class User(BaseModel):
 
 
 class ShowUser(BaseModel):
+    id: int
     name: str
     email: str
+
+    blogs: List
 
     class Config:
         orm_mode = True
